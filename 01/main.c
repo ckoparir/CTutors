@@ -1,3 +1,8 @@
+/*
+exercise about stderr handling
+(if test.txt cannot be found, gives error)
+*/
+
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>

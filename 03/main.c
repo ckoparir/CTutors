@@ -1,3 +1,5 @@
+/* Exercise about function pointers passed as parameters */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,9 +27,8 @@ int main()
   int iarr[50] = {11, 22, 33, 44, 55};
 
   puts("\nBefore [ void incptr(int *) ]\n");
-  foreach(iarr, isize, printptr);
-
-  foreach(iarr, isize, incptr);  // increment integers
+  foreach(iarr, isize, printptr);           /* print pointer info */
+  foreach(iarr, isize, incptr);             /* increment integers */
 
   puts("\nAfter [ void incptr(int *) ]\n");
   foreach(iarr, isize, printptr);

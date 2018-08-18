@@ -1,3 +1,5 @@
+/* Exercise about data structures and pointers */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +9,7 @@ typedef struct {
   char* data;
 } DataFile;
 
+/* Function prototypes */
 DataFile* writedatafile(char*);
 void printdatafile(DataFile*);
 

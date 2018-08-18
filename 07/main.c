@@ -1,3 +1,8 @@
+/*
+  Exercise about type independet data structure
+  with pointer and memory exchange
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

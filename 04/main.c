@@ -1,3 +1,7 @@
+/*
+  Exercise about sorting pointers data with
+ comparing data in the pointer memory address
+*/
 #include <stdio.h>
 
 void Sort(void *pvArray, unsigned size, unsigned width,
@@ -72,7 +76,6 @@ int main()
   Sort(carr, _size, sizeof(char), Compare);
   PrintArr(carr, _size, sizeof(char));
   putchar('\n');
-  
-    
+      
   return 0;
 }

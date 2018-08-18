@@ -1,3 +1,9 @@
+/*
+  Exercise about measuring process time between
+  two process. And using selective main method
+  with #define preprocessor declaration
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

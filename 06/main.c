@@ -1,3 +1,7 @@
+/*
+    Exercise about type independet linked list
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
@@ -5,7 +9,7 @@
 int main(void)
 {
   const size_t size = 10;
-  // int i = 23, val;
+  int i = 23, ival;
   HQUEUE node1;
 
   char *str = "This is a test message";
@@ -16,14 +20,14 @@ int main(void)
     exit(EXIT_FAILURE);
   }
   
-  // for (i = 0; i < (int)size; ++i) {
+  for (i = 0; i < (int)size; ++i) {
     PutQueue(node1, &str);
-  // }
+  }
 
-  // while (IsEmptyQueue(node1)==FALSE) {
-    GetQueue(node1, &sval);
+  while (IsEmptyQueue(node1)==FALSE) {
+    GetQueue(node1, &ival);
     printf("node1: %s\n", sval);
-  // }
+  }
 
   CloseQueue(node1);
   
