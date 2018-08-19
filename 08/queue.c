@@ -43,7 +43,7 @@ Bool GetQueue(HQUEUE hQueue, void *data)
     return FALSE;
 
   memcpy(data, (char *)hQueue->data, hQueue->size);
-  memmove(hQueue->data, hQueue->data + (hQueue->size), (hQueue->tail -1) * hQueue->size );
+  memmove(hQueue->data, hQueue->data + (hQueue->size), (hQueue->tail - 1) * hQueue->size );
 
   --hQueue->tail;
 

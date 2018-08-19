@@ -7,111 +7,60 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 256
-
+#define SIZE 25
 
 void ShowHelp() {
-  system("@clr||clear");
-  printf("\nCommnds for Queue:\n");
-  printf("<h> Help (this screen)\n"
-         "<a> to add data to queue\n"
-         "<g> to get data from queue\n"
-         "<q> exit program\n\n");
-
-  printf("Please choose a method for queue: ");
-}
-/*
-void Destroy()
-{
-
-  if (ientry != NULL) {
-    printf("Freeing ientry...\n");
-    free(ientry);
-  }
-  
-  if(val != NULL) {
-    printf("Freeing val...\n");
-    free(val);
-    
-  }
-  
-  if(hQueue != NULL) {    
-    printf("Freeing hQueue...\n");
-    CloseQueue(hQueue);
-  }
-}
-*/
-
-char *GetEntry(char entry[])
-{
-  int ch;
-  int i =0;
-  
-  ch = getchar();
-  
-  while (ch != '\n' && ch != EOF) {
-    entry[i] = ch;
-    ch = getchar();
-    i++;
-  }
-  entry[i] = '\0';
-  return entry;
+  system("clear");
+  printf("Commnds for Queue:\n");
+  printf("\t<h>\tHelp (this screen)\n"
+         "\t<+>\tto add data to queue\n"
+         "\t<->\tto get data from queue\n"
+         "\t<!>\texit program\n\n");
 }
 
 int main(void) {
-  int csel;
   HQUEUE hQueue;
-  char val[25], ientry[25];
-
-  if ((hQueue = CreateQueue(sizeof(char*))) == NULL) {
+  char val[SIZE], ientry[SIZE] ="";
+  
+  if ((hQueue = CreateQueue(SIZE)) == NULL) {
     fprintf(stderr, "Cannot create queue...!\n");
     exit(EXIT_FAILURE);
   }
 
   ShowHelp();
+  
+  while (ientry[0] != '!') {
 
-  while ((csel = getchar()) != EOF) {
-
-    switch (csel) {
-      case 'a': {
-        /* Add Queue */
-          printf("Add an entry for queue:");
-          scanf("%23s\n", ientry);
-          /* GetEntry(&ientry); */
-          /* fgets(ientry, 23, stdin);  */
+    printf(":> ");
+    int i = 0, ch = 0;
+    strcpy(ientry, "");
+    
+    while(ch != EOF && ch != '\n'){
+        ch = getchar();
+        *(ientry + i) = ch;
+        ientry[i+1] = '\0';
+        if(i++ > SIZE-1) break;
+    }
           
-          if (!PutQueue(hQueue, &ientry)) {
-            fprintf(stderr, "Error adding data to queue...!\n");
-            CloseQueue(hQueue);
-            exit(EXIT_FAILURE);
-          }
-          /* getchar(); */
-          /* ShowHelp(); */
-          break;
+    if(ientry[0] == '+') {
+      PutQueue(hQueue, &ientry);
+      printf("data has added to queue...\n");
+    }
+    else if(ientry[0] == '-') {
+
+      if (IsQueueEmpty(hQueue)) {
+        printf("Queue stack is empty...!\n");
       }
-      case 'g': {
-        /* Get Queue */
-        if (IsQueueEmpty(hQueue)) {
-          printf("\nQueue stack is empty...!\n");
-          break;
-        }
-        if (GetQueue(hQueue, &val)) {
-          // ShowHelp();
-          printf("\nData: %s\n", val);
-          //getchar();
-        }
-        break;
-      }
-      case 'h': {
-        ShowHelp();
-        break;
-      }
-      case 'q': {
-        CloseQueue(hQueue);
-        return 0;
+
+      if (GetQueue(hQueue, &val)) {
+        printf("Data: %s\n", val);
       }
     }
+    else if(ientry[0] == 'h') {
+      ShowHelp();
+    }
   }
+
   CloseQueue(hQueue);
   return 0;
 }

@@ -8,12 +8,15 @@
 
 PUBLIC HQUEUE CreateQueue(size_t size, size_t width) {
   HQUEUE hQueue;
+
   if ((hQueue = (HQUEUE)malloc(sizeof(QUEUE))) == NULL)
     return NULL;
+  
   if ((hQueue->pQueue = malloc(width * size)) == NULL) {
     free(hQueue);
     return NULL;
   }
+  
   hQueue->size = size;
   hQueue->width = width;
   hQueue->count = hQueue->head = hQueue->tail = 0;
@@ -28,8 +31,10 @@ PUBLIC void CloseQueue(HQUEUE hQueue) {
 PUBLIC BOOL PutQueue(HQUEUE hQueue, const void *pItem) {
   if (hQueue->count == hQueue->size)
     return FALSE;
+  
   if (hQueue->tail == hQueue->size)
     hQueue->tail = 0;
+  
   memcpy((char *)hQueue->pQueue + hQueue->tail * hQueue->width, pItem,
          hQueue->width);
   ++hQueue->tail;
@@ -38,8 +43,10 @@ PUBLIC BOOL PutQueue(HQUEUE hQueue, const void *pItem) {
 }
 
 PUBLIC BOOL GetQueue(HQUEUE hQueue, void *pItem) {
+
   if (hQueue->count == 0)
     return FALSE;
+
   if (hQueue->head == hQueue->size)
     hQueue->head = 0;
   /*
@@ -47,6 +54,7 @@ PUBLIC BOOL GetQueue(HQUEUE hQueue, void *pItem) {
   */
   memcpy(pItem, (char *)hQueue->pQueue + hQueue->head * hQueue->width,
          hQueue->width);
+
   hQueue->head++;
   --hQueue->count;
   return TRUE;
