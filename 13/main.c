@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 unsigned char* convertobin(size_t const size, void const *const ptr)
 {
@@ -32,35 +33,39 @@ unsigned char* convertobin(size_t const size, void const *const ptr)
   return byte;
 }
 
+unsigned char *inverse(unsigned char *ptr)
+{
+  unsigned int size = strlen((char*)ptr)-1;
+  unsigned int cnt = 0;
+
+  while(cnt < (size - cnt))
+  {
+    unsigned char ch = ptr[cnt];
+    ptr[cnt] = ptr[size-cnt];
+    ptr[size-cnt] = ch;
+    cnt++;
+  }
+  return ptr;
+}
+
 unsigned char* tobin(size_t size, void const *const ptr)
 {
-  int cnt = 0;
   unsigned char *dec = (unsigned char*) ptr;
   int quotient = (int) *dec;
-  size_t SIZE = size * 8;
+  int cnt = size-1;
   
-  unsigned char *byte = (unsigned char*)malloc(SIZE+1);
-  
-  while(quotient != 0)
+  unsigned char *byte = (unsigned char*)malloc(size);
+
+  while(cnt>=0) //(quotient !=0)
   {
     byte[cnt] = ((quotient % 2) == 0) ? '0' : '1';
     quotient >>= 1;
-    ++cnt;
+    cnt--;
   }
   
-  cnt--;
-  int i=0;
-
-  while (cnt > 0)
-  {
-    unsigned char tmp = byte[i];
-    byte[i] = byte[cnt];
-    byte[cnt] = tmp;
-    cnt--;
-    i++;
-  }
   return byte;
 }
+
 
 int Add(int a, int b)
 {
@@ -98,22 +103,27 @@ int AddAsm(int a, int b)
 
 int main()
 {
-  clock_t t1, t2;
-  double sec1, sec2;
+  // clock_t t1, t2;
+  // double sec1, sec2;
   
-  int a=0, b=0;
-  /* int sum=0, sub=0; */
+  long long a=0; //, b=0;
+  // int sum=0, sub=0;
   
-  /* printf("Please enter two integer: "); */
-  /* scanf("%d%d", &a, &b); */
-  /* sum = Add(a, b); */
-  /* sub = Sub(a, b); */
-  /* printf("( %d + %d ): %d\n", a, b, sub); */
+  // printf("Please enter two integer: ");
+  // scanf("%d%d", &a, &b);
+  // sum = Add(a, b);
+  // sub = Sub(a, b);
+  // printf("( %d + %d ): %d\n", a, b, sub);
 
   printf("Please enter an integer: ");
-  scanf("%d%d", &a, &b);
+  scanf("%lld", &a);
 
-  /* unsigned char *str = tobin(sizeof(int), &a); */
+  unsigned char *str = tobin(sizeof(a), &a);
+  printf("%s\n", str);
+
+  unsigned char s[] = "Test message...";
+  printf("%s\n", inverse(s));
+  /*
   t1 = clock();
   printf("( %d + %d ): %d\n", a, b, AddAsm(a, b));
   t2 = clock();
@@ -136,7 +146,7 @@ int main()
   t2 = clock();
   sec2 = (double)(t2-t1) / CLOCKS_PER_SEC;
   printf("(a+=b)  : %d\t[%f sec]\n", a, sec2);
-  
+  */
   
   return 0;
 }
